@@ -1,5 +1,7 @@
 package it.androidclient
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_main_item.view.*
 import java.util.*
 
-class LineAdapter(users: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolder>() {
+class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolder>() {
     private val mModel: MutableList<LineModel>?
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LineHolder {
         return LineHolder(
@@ -33,22 +35,65 @@ class LineAdapter(users: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             5 -> R.color.applicationList6
             else -> R.color.applicationList1
         }
+
+        val listener = when (position){
+            0 -> readListener
+            1 -> languageListener
+            2 -> abstractListener
+            3 -> concentrationListener
+            4 -> praxiasListener
+            5 -> perceptionListener
+            else -> readListener
+        }
         holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context.applicationContext, color))
-        holder.itemView.setOnClickListener(titleListener)
+        holder.itemView.setOnClickListener(listener)
     }
 
     override fun getItemCount(): Int {
         return mModel?.size ?: 0
     }
 
-    private val titleListener =
+    //region Listeners
+    private val readListener =
         View.OnClickListener { v ->
+            val intent = Intent(v.context.applicationContext, ReadActivity::class.java)
+            intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
+            v.context.applicationContext.startActivity(intent)
+        }
 
-            Toast.makeText(v.context.applicationContext, "Works", Toast.LENGTH_SHORT).show()
+    private val languageListener =
+        View.OnClickListener { v ->
+            Toast.makeText(v.context.applicationContext, "Lenguaje not implemented", Toast.LENGTH_SHORT).show()
             notifyDataSetChanged()
         }
 
+    private val abstractListener =
+        View.OnClickListener { v ->
+            Toast.makeText(v.context.applicationContext, "Pensamiento abstracto not implemented", Toast.LENGTH_SHORT).show()
+            notifyDataSetChanged()
+        }
+
+    private val concentrationListener =
+        View.OnClickListener { v ->
+            Toast.makeText(v.context.applicationContext, "Concentracion not implemented", Toast.LENGTH_SHORT).show()
+            notifyDataSetChanged()
+        }
+
+    private val praxiasListener =
+        View.OnClickListener { v ->
+            Toast.makeText(v.context.applicationContext, "Praxias not implemented", Toast.LENGTH_SHORT).show()
+            notifyDataSetChanged()
+        }
+
+    private val perceptionListener =
+        View.OnClickListener { v ->
+            Toast.makeText(v.context.applicationContext, "Percepcion sensorial not implemented", Toast.LENGTH_SHORT).show()
+            notifyDataSetChanged()
+        }
+
+    //endregion
+
     init {
-        mModel = users
+        mModel = model
     }
 }
