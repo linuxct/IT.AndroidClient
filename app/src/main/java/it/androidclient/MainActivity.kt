@@ -17,14 +17,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecycler() {
-
         val layoutManager = LinearLayoutManager(this)
         rvMain.layoutManager = layoutManager
 
         val list = arrayListOf<LineModel>()
-        list.add(LineModel("Test 1"))
-        list.add(LineModel("Test 2"))
-        list.add(LineModel("Test 3"))
+        list.add(LineModel("LECTURA"))
+        list.add(LineModel("LENGUAJE"))
+        list.add(LineModel("PENSAMIENTO ABSTRACTO"))
+        list.add(LineModel("CONCENTRACION"))
+        list.add(LineModel("PRAXIAS"))
+        list.add(LineModel("PERCEPCION SENSORIAL"))
         mAdapter = LineAdapter(list)
         rvMain.adapter = mAdapter
 
