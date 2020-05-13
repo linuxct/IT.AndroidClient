@@ -1,6 +1,9 @@
 package it.androidclient
 
+import Preferences
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +15,16 @@ class MainActivity : AppCompatActivity() {
     private var mAdapter: LineAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val userDataDto = UserDataDto(applicationContext)
+        if (userDataDto.userName.isNullOrBlank()){
+            val intent = Intent(applicationContext, WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
         setContentView(R.layout.activity_main)
+        findViewById<TextView>(R.id.toolbar_title).apply {
+            text = resources.getString(R.string.greeting).replace("{0}", userDataDto.userName.toString())
+        }
         setupRecycler()
     }
 
