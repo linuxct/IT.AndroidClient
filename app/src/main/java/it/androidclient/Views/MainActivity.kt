@@ -1,12 +1,15 @@
-package it.androidclient
+package it.androidclient.Views
 
-import Preferences
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import it.androidclient.Line.LineAdapter
+import it.androidclient.Line.LineModel
+import it.androidclient.R
+import it.androidclient.UserCtx.UserDataDto
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -15,7 +18,8 @@ class MainActivity : AppCompatActivity() {
     private var mAdapter: LineAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val userDataDto = UserDataDto(applicationContext)
+        val userDataDto =
+            UserDataDto(applicationContext)
         if (userDataDto.userName.isNullOrBlank()){
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

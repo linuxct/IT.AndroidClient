@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="it.androidclient">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -11,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeActivity"></activity>
-        <activity android:name=".CongratulationsActivity" />
-        <activity android:name=".ReadActivity" />
+        <activity android:name=".Views.WelcomeActivity"></activity>
+        <activity android:name=".Views.CongratulationsActivity" />
+        <activity android:name=".Views.ReadActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

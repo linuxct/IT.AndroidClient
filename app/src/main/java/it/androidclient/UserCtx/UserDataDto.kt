@@ -1,4 +1,4 @@
-package it.androidclient
+package it.androidclient.UserCtx
 
 import Preferences
 import android.content.Context

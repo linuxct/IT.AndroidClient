@@ -1,4 +1,4 @@
-package it.androidclient
+package it.androidclient.Views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import it.androidclient.R
+import it.androidclient.UserCtx.UserDataDto
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -22,7 +23,8 @@ class WelcomeActivity : AppCompatActivity() {
                 userNameField.requestFocus()
                 return@setOnClickListener
             }
-            val userDataDto = UserDataDto(applicationContext)
+            val userDataDto =
+                UserDataDto(applicationContext)
             userDataDto.userName = userNameField.text.toString()
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
