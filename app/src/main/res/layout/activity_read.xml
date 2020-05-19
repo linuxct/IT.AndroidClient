@@ -63,10 +63,13 @@
                 android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/applicationList1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@color/design_default_color_background"
                 android:text="Loading..."
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/widget_edittext_dark"
                 android:textFontWeight="700"
                 android:textSize="30dp" />
 
@@ -74,10 +77,12 @@
                 android:id="@+id/textRead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/applicationList1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/design_default_color_on_primary"
                 android:text="Loading..."
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/widget_edittext_dark"
                 android:textSize="25dp" />
 
             <Button

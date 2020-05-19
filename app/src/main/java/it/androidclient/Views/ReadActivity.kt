@@ -1,7 +1,12 @@
 package it.androidclient.Views
 
 import android.content.Intent
+import android.content.res.AssetManager
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
+import android.util.TypedValue
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -10,11 +15,13 @@ import it.androidclient.R
 import it.androidclient.Services.TodaysPostModel
 import it.androidclient.Services.TodaysPostService
 import it.androidclient.UserCtx.UserDataDto
+import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+
 
 class ReadActivity : AppCompatActivity() {
 
@@ -31,6 +38,18 @@ class ReadActivity : AppCompatActivity() {
             displayResult(value)
         } else {
             beginFetchPostSuspend()
+        }
+
+        if (userDataDto!!.needsDyslexicFont as Boolean){
+            val am: AssetManager = applicationContext.assets
+            val typeface = Typeface.createFromAsset(am,
+                java.lang.String.format(Locale.US, "fonts/%s", "OpenDyslexic-Regular.ttf")
+            )
+
+            textTitle.typeface = typeface
+            textRead.typeface = typeface
+            textTitle.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics)
+            textRead.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics)
         }
 
         findViewById<TextView>(R.id.toolbar_title).apply {
@@ -77,6 +96,9 @@ class ReadActivity : AppCompatActivity() {
         }
         findViewById<TextView>(R.id.textRead).apply {
             text = stringBuilder.toString()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                justificationMode = JUSTIFICATION_MODE_INTER_WORD
+            }
         }
     }
 
