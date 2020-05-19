@@ -1,34 +1,40 @@
 package it.androidclient.Views
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.appcompat.app.AppCompatActivity
 import it.androidclient.R
 import it.androidclient.Services.TodaysPostModel
 import it.androidclient.Services.TodaysPostService
 import it.androidclient.UserCtx.UserDataDto
-import java.lang.StringBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 class ReadActivity : AppCompatActivity() {
 
     private val todaysPostService by lazy { TodaysPostService.create() }
     private val dispatcherIoScope = CoroutineScope(Dispatchers.IO)
+    private var userDataDto: UserDataDto? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
-        val userDataDto = UserDataDto(applicationContext)
+        userDataDto = UserDataDto(applicationContext)
+        if (userDataDto!!.todaysPost is TodaysPostModel.Result && postAppliesToToday(userDataDto!!.todaysPost as TodaysPostModel.Result)){
+            val value = userDataDto!!.todaysPost as TodaysPostModel.Result
+            displayResult(value)
+        } else {
+            beginFetchPostSuspend()
+        }
 
-        beginFetchPostSuspend()
         findViewById<TextView>(R.id.toolbar_title).apply {
-            text = resources.getString(R.string.cheering).replace("{0}", userDataDto.userName.toString())
+            text = resources.getString(R.string.cheering).replace("{0}", userDataDto!!.userName.toString())
         }
         findViewById<Button>(R.id.button).apply {
             setOnClickListener {
@@ -39,12 +45,19 @@ class ReadActivity : AppCompatActivity() {
         }
     }
 
+    private fun postAppliesToToday(todaysPost: TodaysPostModel.Result): Boolean {
+        val currDate: Date = Calendar.getInstance().time
+        val comp = todaysPost.date.day != currDate.day || todaysPost.date.month != currDate.month || todaysPost.date.year != currDate.year
+        return !comp
+    }
+
     private fun beginFetchPostSuspend() {
         dispatcherIoScope.launch {
             try {
                 val result = todaysPostService.todaysPost()
                 withContext(Dispatchers.Main) {
                     displayResult(result)
+                    userDataDto!!.todaysPost = result
                 }
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {

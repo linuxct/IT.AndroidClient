@@ -1,5 +1,7 @@
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import it.androidclient.Services.TodaysPostModel
 import kotlin.reflect.KProperty
 
 /**
@@ -48,7 +50,8 @@ abstract class Preferences(private var context: Context, private val name: Strin
         Float,
         Boolean,
         Long,
-        StringSet
+        StringSet,
+        TodaysPostObject
     }
 
     inner class GenericPrefDelegate<T>(prefKey: String? = null, private val defaultValue: T?, val type: StorableType) :
@@ -67,6 +70,11 @@ abstract class Preferences(private var context: Context, private val name: Strin
                     prefs.getLong(prefKey ?: property.name, defaultValue as Long) as T?
                 StorableType.StringSet ->
                     prefs.getStringSet(prefKey ?: property.name, defaultValue as Set<String>) as T?
+                StorableType.TodaysPostObject -> {
+                    val serialized = prefs.getString(prefKey ?: property.name, defaultValue as String?)
+                    val gson = Gson()
+                    gson.fromJson(serialized, TodaysPostModel.Result::class.java) as T?
+                }
             }
 
         override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
@@ -95,6 +103,12 @@ abstract class Preferences(private var context: Context, private val name: Strin
                     prefs.edit().putStringSet(prefKey ?: property.name, value as Set<String>).apply()
                     onPrefChanged(property)
                 }
+                StorableType.TodaysPostObject -> {
+                    val gson = Gson()
+                    val serialized = gson.toJson(value)
+                    prefs.edit().putString(prefKey ?: property.name, serialized).apply()
+                    onPrefChanged(property)
+                }
             }
         }
 
@@ -102,6 +116,9 @@ abstract class Preferences(private var context: Context, private val name: Strin
 
     fun stringPref(prefKey: String? = null, defaultValue: String? = null) =
         GenericPrefDelegate(prefKey, defaultValue, StorableType.String)
+
+    fun todaysPostPref(prefKey: String? = null, defaultValue:Any?=null) =
+        GenericPrefDelegate(prefKey, defaultValue, StorableType.TodaysPostObject)
 
     fun intPref(prefKey: String? = null, defaultValue: Int = 0) =
         GenericPrefDelegate(prefKey, defaultValue, StorableType.Int)
