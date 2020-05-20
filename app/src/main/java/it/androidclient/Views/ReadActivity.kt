@@ -3,30 +3,25 @@ package it.androidclient.Views
 import android.content.Intent
 import android.content.res.AssetManager
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
-import android.text.format.DateUtils
 import android.util.TypedValue
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
 import it.androidclient.R
 import it.androidclient.Services.TodaysPostModel
 import it.androidclient.Services.TodaysPostService
 import it.androidclient.UserCtx.AchievementsModel
 import it.androidclient.UserCtx.UserDataDto
 import kotlinx.android.synthetic.main.activity_read.*
+import kotlinx.android.synthetic.main.toolbar_common.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class ReadActivity : AppCompatActivity() {

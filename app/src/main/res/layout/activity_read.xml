@@ -7,41 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Views.ReadActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="110dp"
-        android:background="#80000000"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="visible">
-
-        <ImageView
-            android:id="@+id/tom_nook"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/mouse_1"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:lines="3"
-            android:maxLines="3"
-            android:paddingLeft="15dp"
-            android:text="Texto animando al usuario\nPrueba de texto"
-            android:textColor="@android:color/white"
-            android:textSize="20dp" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar_common" />
 
     <ScrollView
         android:layout_width="0dp"
