@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.15000000"
-        app:srcCompat="@drawable/tom" />
+        app:srcCompat="@drawable/mouse_1" />
 
     <TextView
         android:id="@+id/textView"

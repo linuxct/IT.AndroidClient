@@ -6,41 +6,47 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
+import android.text.format.DateUtils
 import android.util.TypedValue
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import it.androidclient.R
 import it.androidclient.Services.TodaysPostModel
 import it.androidclient.Services.TodaysPostService
+import it.androidclient.UserCtx.AchievementsModel
 import it.androidclient.UserCtx.UserDataDto
 import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class ReadActivity : AppCompatActivity() {
 
     private val todaysPostService by lazy { TodaysPostService.create() }
     private val dispatcherIoScope = CoroutineScope(Dispatchers.IO)
-    private var userDataDto: UserDataDto? = null
+    private lateinit var userDataDto: UserDataDto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
         userDataDto = UserDataDto(applicationContext)
-        if (userDataDto!!.todaysPost is TodaysPostModel.Result && postAppliesToToday(userDataDto!!.todaysPost as TodaysPostModel.Result)){
-            val value = userDataDto!!.todaysPost as TodaysPostModel.Result
+        if (userDataDto.todaysPost is TodaysPostModel.Result && postAppliesToToday(userDataDto.todaysPost as TodaysPostModel.Result)){
+            val value = userDataDto.todaysPost as TodaysPostModel.Result
             displayResult(value)
         } else {
             beginFetchPostSuspend()
         }
 
-        if (userDataDto!!.needsDyslexicFont as Boolean){
+        if (userDataDto.needsDyslexicFont as Boolean){
             val am: AssetManager = applicationContext.assets
             val typeface = Typeface.createFromAsset(am,
                 java.lang.String.format(Locale.US, "fonts/%s", "OpenDyslexic-Regular.ttf")
@@ -52,11 +58,30 @@ class ReadActivity : AppCompatActivity() {
             textRead.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics)
         }
 
-        findViewById<TextView>(R.id.toolbar_title).apply {
-            text = resources.getString(R.string.cheering).replace("{0}", userDataDto!!.userName.toString())
+        toolbar_title.apply {
+            text = resources.getString(R.string.cheering).replace("{0}", userDataDto.userName.toString())
         }
-        findViewById<Button>(R.id.button).apply {
+        button.apply {
             setOnClickListener {
+                if (userDataDto.userAchievements == null){
+                    userDataDto.userAchievements = AchievementsModel.UserCalendarModel(hashMapOf())
+                }
+
+                val currentAchievements = userDataDto.userAchievements as AchievementsModel.UserCalendarModel
+                if (currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)] == null) {
+                    currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)] =
+                        AchievementsModel.DailyMilestonesAchieved(
+                            achievedReading = false,
+                            achievedLanguage = false,
+                            achievedAbstractThinking = false,
+                            achievedConcentration = false,
+                            achievedPraxias = false,
+                            achievedSensorial = false
+                        )
+                }
+                currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedReading = true
+                userDataDto.userAchievements = currentAchievements
+
                 val intent = Intent(context.applicationContext, CongratulationsActivity::class.java)
                 intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -76,7 +101,7 @@ class ReadActivity : AppCompatActivity() {
                 val result = todaysPostService.todaysPost()
                 withContext(Dispatchers.Main) {
                     displayResult(result)
-                    userDataDto!!.todaysPost = result
+                    userDataDto.todaysPost = result
                 }
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {
@@ -87,18 +112,18 @@ class ReadActivity : AppCompatActivity() {
     }
 
     private fun displayResult(result: TodaysPostModel.Result) {
-        findViewById<TextView>(R.id.textTitle).apply {
+        textTitle.apply {
             text = result.title
         }
         val stringBuilder = StringBuilder()
         result.pageContents.forEach { p ->
             stringBuilder.append(p)
+            stringBuilder.append("\n\n")
         }
-        findViewById<TextView>(R.id.textRead).apply {
+
+        textRead.apply {
             text = stringBuilder.toString()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                justificationMode = JUSTIFICATION_MODE_INTER_WORD
-            }
+            justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
     }
 

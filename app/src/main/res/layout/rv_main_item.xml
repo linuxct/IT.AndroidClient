@@ -19,14 +19,26 @@
         <TextView
             android:id="@+id/cardTextView"
             android:gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:padding="50dp"
+            android:layout_centerVertical="true"
             android:textAllCaps="true"
             android:textSize="30dp"
-            android:text="Hello world"
+            android:text="Hello WORLD WORLD world"
             android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/isCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/cardTextView"
+            android:visibility="gone"
+            card_view:srcCompat="@drawable/ic_launcher_foreground" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

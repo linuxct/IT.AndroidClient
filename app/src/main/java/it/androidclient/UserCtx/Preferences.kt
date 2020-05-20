@@ -1,8 +1,15 @@
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializer
 import it.androidclient.Services.TodaysPostModel
+import it.androidclient.UserCtx.AchievementsModel
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import kotlin.reflect.KProperty
+
 
 /**
  * Represents a single [SharedPreferences] file.
@@ -51,7 +58,8 @@ abstract class Preferences(private var context: Context, private val name: Strin
         Boolean,
         Long,
         StringSet,
-        TodaysPostObject
+        TodaysPostObject,
+        AchievementsModelObject
     }
 
     inner class GenericPrefDelegate<T>(prefKey: String? = null, private val defaultValue: T?, val type: StorableType) :
@@ -74,6 +82,15 @@ abstract class Preferences(private var context: Context, private val name: Strin
                     val serialized = prefs.getString(prefKey ?: property.name, defaultValue as String?)
                     val gson = Gson()
                     gson.fromJson(serialized, TodaysPostModel.Result::class.java) as T?
+                }
+                StorableType.AchievementsModelObject -> {
+                    val serialized = prefs.getString(prefKey ?: property.name, defaultValue as String?)
+                    val gson = GsonBuilder().registerTypeAdapter(
+                        LocalDateTime::class.java,
+                        JsonDeserializer<Any?> { json, _, _ ->
+                            LocalDateTime.parse(json.asJsonPrimitive.asString)
+                        }).create()
+                    gson.fromJson(serialized, AchievementsModel.UserCalendarModel::class.java) as T?
                 }
             }
 
@@ -109,6 +126,12 @@ abstract class Preferences(private var context: Context, private val name: Strin
                     prefs.edit().putString(prefKey ?: property.name, serialized).apply()
                     onPrefChanged(property)
                 }
+                StorableType.AchievementsModelObject -> {
+                    val gson = Gson()
+                    val serialized = gson.toJson(value)
+                    prefs.edit().putString(prefKey ?: property.name, serialized).apply()
+                    onPrefChanged(property)
+                }
             }
         }
 
@@ -119,6 +142,9 @@ abstract class Preferences(private var context: Context, private val name: Strin
 
     fun todaysPostPref(prefKey: String? = null, defaultValue:Any?=null) =
         GenericPrefDelegate(prefKey, defaultValue, StorableType.TodaysPostObject)
+
+    fun achievementsPref(prefKey: String? = null, defaultValue:Any?=null) =
+        GenericPrefDelegate(prefKey, defaultValue, StorableType.AchievementsModelObject)
 
     fun intPref(prefKey: String? = null, defaultValue: Int = 0) =
         GenericPrefDelegate(prefKey, defaultValue, StorableType.Int)
