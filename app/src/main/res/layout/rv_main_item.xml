@@ -26,17 +26,17 @@
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:textAllCaps="true"
-            android:textSize="30dp"
-            android:text="Hello WORLD WORLD world"
+            android:textSize="30sp"
+            tools:text="Hello WORLD WORLD world"
             android:textColor="@android:color/white" />
         <ImageView
             android:id="@+id/isCompleted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/cardTextView"
-            android:visibility="gone"
-            card_view:srcCompat="@drawable/ic_launcher_foreground" />
+            android:visibility="visible"
+            card_view:srcCompat="@drawable/res_def" />
 
     </RelativeLayout>
 
