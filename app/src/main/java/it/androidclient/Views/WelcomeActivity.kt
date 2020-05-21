@@ -23,8 +23,7 @@ class WelcomeActivity : AppCompatActivity() {
                 userNameField.requestFocus()
                 return@setOnClickListener
             }
-            val userDataDto =
-                UserDataDto(applicationContext)
+            val userDataDto = UserDataDto(applicationContext)
             userDataDto.userName = userNameField.text.toString()
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

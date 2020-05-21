@@ -10,20 +10,6 @@ import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import kotlin.reflect.KProperty
 
-
-/**
- * Represents a single [SharedPreferences] file.
- *
- * Usage:
- *
- * ```kotlin
- * class UserPreferences(ctx: Context) : Preferences(ctx) {
- *   var emailAccount by stringPref()
- *   var showSystemAppsPreference by booleanPref()
- * }
- * ```
- */
-
 @Suppress("UNCHECKED_CAST", "unused")
 abstract class Preferences(private var context: Context, private val name: String? = null) {
     private val prefs: SharedPreferences by lazy {

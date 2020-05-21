@@ -21,7 +21,7 @@
             android:id="@+id/tom_nook"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/mouse_1" />
+            app:srcCompat="@drawable/mouse_2" />
 
         <TextView
             android:id="@+id/toolbar_title"

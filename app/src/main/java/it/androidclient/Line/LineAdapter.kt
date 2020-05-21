@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import it.androidclient.R
 import it.androidclient.UserCtx.AchievementsModel
 import it.androidclient.UserCtx.UserDataDto
+import it.androidclient.Views.ProfileActivity
 import it.androidclient.Views.ReadActivity
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -40,6 +41,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             3 -> R.color.applicationList4
             4 -> R.color.applicationList5
             5 -> R.color.applicationList6
+            6 -> R.color.applicationList7
             else -> R.color.applicationList1
         }
 
@@ -57,7 +59,8 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             3 -> concentrationListener
             4 -> praxiasListener
             5 -> perceptionListener
-            else -> readListener
+            6 -> profileListener
+            else -> profileListener
         }
         holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context.applicationContext, color))
         holder.itemView.setOnClickListener(listener)
@@ -193,6 +196,13 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             userDataDto.userAchievements = currentAchievements
             Toast.makeText(v.context.applicationContext, "Percepcion sensorial not implemented", Toast.LENGTH_SHORT).show()
             notifyDataSetChanged()
+        }
+
+    private val profileListener =
+        View.OnClickListener { v ->
+            val intent = Intent(v.context.applicationContext, ProfileActivity::class.java)
+            intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
+            v.context.applicationContext.startActivity(intent)
         }
 
     //endregion

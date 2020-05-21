@@ -5,13 +5,16 @@
     <color name="colorAccent">#03DAC5</color>
 
     <!-- Custom colors -->
+
     <color name="applicationList1">#75c3d6</color>
     <color name="applicationList2">#ffbe5e</color>
     <color name="applicationList3">#ff8aad</color>
     <color name="applicationList4">#91efef</color>
     <color name="applicationList5">#70edc8</color>
     <color name="applicationList6">#e193f0</color>
+    <color name="applicationList7">#84e097</color>
     <color name="applicationListDone">#DD4E4E4E</color>
     <color name="gotItButton">#84e097</color>
+    <color name="nonSelectedDay">#C172949C</color>
 
 </resources>

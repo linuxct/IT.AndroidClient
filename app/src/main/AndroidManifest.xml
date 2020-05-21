@@ -13,18 +13,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.Settings"></activity>
-        <activity
-            android:name=".Views.SettingsActivity"
-            android:label="@string/title_activity_settings" />
         <activity
             android:name=".Views.WelcomeActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Views.ReadActivity"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.CongratulationsActivity"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Views.ReadActivity"
+            android:name=".Views.ProfileActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Views.SettingsActivity"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.MainActivity"
@@ -33,7 +35,6 @@
             tools:ignore="InnerclassSeparator,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
