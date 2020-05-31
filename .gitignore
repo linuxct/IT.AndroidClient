@@ -15,4 +15,4 @@
 .cxx
 /app/release/
 /app/debug/
-/app/gradle.properties
+app/gradle.properties
