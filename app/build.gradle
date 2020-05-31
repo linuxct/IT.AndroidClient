@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    signingConfigs {
+        pre {
+            storeFile file('/home/linuxct/Android/IT.keystore')
+            storePassword 'asd123'
+            keyAlias 'it'
+            keyPassword 'asd123'
+        }
+        prod {
+            storeFile file('/home/linuxct/Android/IT.keystore')
+            storePassword 'asd123'
+            keyAlias 'it'
+            keyPassword 'asd123'
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "it.androidclient"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "API_URL_BASE", PRE_API_BASE_URL
+            buildConfigField "String", "API_SEQ_BASE", PRE_SEQ_BASE_URL
+            buildConfigField "String", "MICROSOFT_CSST_API_KEY", PRE_MICROSOFT_CSST_API_KEY
+            minifyEnabled false
+        }
+        demo {
+            buildConfigField "String", "API_URL_BASE", DEMO_API_BASE_URL
+            buildConfigField "String", "API_SEQ_BASE", DEMO_SEQ_BASE_URL
+            buildConfigField "String", "MICROSOFT_CSST_API_KEY", PRE_MICROSOFT_CSST_API_KEY
+            minifyEnabled false
+            signingConfig signingConfigs.pre
+        }
+        pre {
+            buildConfigField "String", "API_URL_BASE", PRE_API_BASE_URL
+            buildConfigField "String", "API_SEQ_BASE", PRE_SEQ_BASE_URL
+            buildConfigField "String", "MICROSOFT_CSST_API_KEY", PRE_MICROSOFT_CSST_API_KEY
+            minifyEnabled false //Can't run minified due to a bug while generating bytecode for suspend functions for retrieving today's post
+            signingConfig signingConfigs.pre
+        }
+        release {
+            buildConfigField "String", "API_URL_BASE", PROD_API_BASE_URL
+            buildConfigField "String", "API_SEQ_BASE", PROD_SEQ_BASE_URL
+            buildConfigField "String", "MICROSOFT_CSST_API_KEY", PROD_MICROSOFT_CSST_API_KEY
+            minifyEnabled false //Can't run minified due to a bug while generating bytecode for suspend functions for retrieving today's post
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.prod
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5' //DO NOT UPGRADE UNTIL 1.3.8 COMES OUT
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+    implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.12.0'
+
+    implementation 'org.serilogj.serilogj:serilogj:0.5.1'
+}
