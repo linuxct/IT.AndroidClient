@@ -15,4 +15,6 @@
 .cxx
 /app/release/
 /app/debug/
+/app/pre/
+/app/demo/
 app/gradle.properties

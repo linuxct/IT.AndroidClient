@@ -24,8 +24,8 @@ android {
         applicationId "it.androidclient"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 20200601
+        versionName "0.1-alpha"
     }
 
     compileOptions {
