@@ -123,7 +123,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedLanguage = true
             userDataDto.userAchievements = currentAchievements
             val intent = Intent(v.context.applicationContext, CongratulationsActivity::class.java)
-            intent.putExtra("comesFrom", "lenguaje")
+            intent.putExtra("comesFrom", v.context.applicationContext.getString(R.string.applicationSectionNameLanguage).toLowerCase())
             intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
             v.context.applicationContext.startActivity(intent)
         }
@@ -135,7 +135,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedAbstractThinking = true
             userDataDto.userAchievements = currentAchievements
             val intent = Intent(v.context.applicationContext, CongratulationsActivity::class.java)
-            intent.putExtra("comesFrom", "pensamiento abstracto")
+            intent.putExtra("comesFrom", v.context.applicationContext.getString(R.string.applicationSectionNameAbstract).toLowerCase())
             intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
             v.context.applicationContext.startActivity(intent)
         }
@@ -147,7 +147,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedConcentration = true
             userDataDto.userAchievements = currentAchievements
             val intent = Intent(v.context.applicationContext, CongratulationsActivity::class.java)
-            intent.putExtra("comesFrom", "concentración")
+            intent.putExtra("comesFrom", v.context.applicationContext.getString(R.string.applicationSectionNameConcentration).toLowerCase())
             intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
             v.context.applicationContext.startActivity(intent)
         }
@@ -159,7 +159,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedPraxias = true
             userDataDto.userAchievements = currentAchievements
             val intent = Intent(v.context.applicationContext, CongratulationsActivity::class.java)
-            intent.putExtra("comesFrom", "praxias")
+            intent.putExtra("comesFrom", v.context.applicationContext.getString(R.string.applicationSectionNamePraxias).toLowerCase())
             intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
             v.context.applicationContext.startActivity(intent)
         }
@@ -171,7 +171,7 @@ class LineAdapter(model: ArrayList<LineModel>?) : RecyclerView.Adapter<LineHolde
             currentAchievements.achievementList[LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)]?.achievedSensorial = true
             userDataDto.userAchievements = currentAchievements
             val intent = Intent(v.context.applicationContext, CongratulationsActivity::class.java)
-            intent.putExtra("comesFrom", "percepción sensorial")
+            intent.putExtra("comesFrom", v.context.applicationContext.getString(R.string.applicationSectionNamePerception).toLowerCase())
             intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
             v.context.applicationContext.startActivity(intent)
         }

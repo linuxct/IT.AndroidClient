@@ -13,9 +13,6 @@ class PrivacyPolicySetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_privacy_policy_setup)
-
-
-
         val userDataDto = UserDataDto(applicationContext)
 
         viewOurPrivacyPolicy.setOnClickListener {

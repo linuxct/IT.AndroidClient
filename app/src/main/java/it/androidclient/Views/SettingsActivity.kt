@@ -67,10 +67,10 @@ class SettingsActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             if (textInputField.text.isNullOrBlank()){
                 textInputField.setText(userDataDto.userName.toString().capitalize(), TextView.BufferType.EDITABLE)
-                Toast.makeText(applicationContext, "Cambios deshechos", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.undoChanges), Toast.LENGTH_LONG).show()
             } else {
                 userDataDto.userName = textInputField.text.toString()
-                Toast.makeText(applicationContext, "Cambios guardados", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.savedChanges), Toast.LENGTH_LONG).show()
             }
             userDataDto.userSurname = textInputFieldSurname.text.toString()
         }
@@ -82,12 +82,12 @@ class SettingsActivity : AppCompatActivity() {
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(this@SettingsActivity,
                 OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                    Toast.makeText(applicationContext, "Nueva hora fijada, $selectedHour:$selectedMinute", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "${getString(R.string.newTimeSet)}, $selectedHour:${selectedMinute.toString().padStart(2, '0')}", Toast.LENGTH_LONG).show()
                     startAlarmBroadcastReceiver(applicationContext, selectedHour, selectedMinute)
                 }, hour, minute, true
             )
 
-            mTimePicker.setTitle("Elige una hora")
+            mTimePicker.setTitle(getString(R.string.setTimeText))
             mTimePicker.show()
         }
 

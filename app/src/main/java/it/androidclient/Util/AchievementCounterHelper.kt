@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit
 
 class AchievementCounterHelper {
     fun countTodaysAchievements(userDataDto: UserDataDto, localDate: LocalDateTime): Int{
-        val userAchievements = safeStuff(userDataDto, localDate)
+        val userAchievements = performLocalSafeUserAchievementsInitialization(userDataDto, localDate)
         var count = 0
         AchievementsModel.DailyMilestonesAchieved (
             achievedAbstractThinking = userAchievements.achievedAbstractThinking.also { achievedAbstractThinking->
@@ -45,7 +45,7 @@ class AchievementCounterHelper {
         return count
     }
 
-    private fun safeStuff(userDataDto: UserDataDto, parsedDate: LocalDateTime): AchievementsModel.DailyMilestonesAchieved {
+    private fun performLocalSafeUserAchievementsInitialization(userDataDto: UserDataDto, parsedDate: LocalDateTime): AchievementsModel.DailyMilestonesAchieved {
         if (userDataDto.userAchievements == null){
             userDataDto.userAchievements = AchievementsModel.UserCalendarModel(hashMapOf())
         }

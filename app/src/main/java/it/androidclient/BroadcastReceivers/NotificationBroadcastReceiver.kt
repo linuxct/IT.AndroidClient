@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
+import it.androidclient.R
 
 class NotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -20,7 +21,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
             cancelAll()
         }
         startAlarmBroadcastReceiver(context.applicationContext, delay)
-        Toast.makeText(context.applicationContext, "Pospuesto 5 minutos", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context.applicationContext, context.getString(R.string.notificationPostponedSuccess), Toast.LENGTH_SHORT).show()
     }
 
     private fun startAlarmBroadcastReceiver(context: Context, delay: Long) {

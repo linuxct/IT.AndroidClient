@@ -39,4 +39,26 @@
     <string name="continueText">Continuar</string>
     <string name="privacypolicyurl">https://it-terms.linuxct.space/</string>
     <string name="microsoftprivacypolicyurl">https://azure.microsoft.com/en-us/support/legal/cognitive-services-compliance-and-privacy/</string>
+    <string name="applicationSectionNameReading">Lectura</string>
+    <string name="applicationSectionNameLanguage">Lenguaje</string>
+    <string name="applicationSectionNameAbstract">Pensamiento Abstracto</string>
+    <string name="applicationSectionNameConcentration">Concentración</string>
+    <string name="applicationSectionNamePraxias">Praxias</string>
+    <string name="applicationSectionNamePerception">Percepción</string>
+    <string name="applicationSectionNameMyProfile">Mi Perfil</string>
+    <string name="applicationSectionNameSettings">Ajustes</string>
+    <string name="notificationChannelName">EXERCISES</string>
+    <string name="notificationChannelDesc">Este canal representa los recordatorios de hacer tus ejercicios</string>
+    <string name="notificationChannelCaption">Recordatorios</string>
+    <string name="notificationTitle">Recordatorio de tus ejercicios</string>
+    <string name="notificationContent">¡Hola! ¿Te apetece hacer tus ejercicios diarios?</string>
+    <string name="notificationActionOpen">¡Vamos!</string>
+    <string name="notificationActionPostpone">Posponer</string>
+    <string name="notificationPostponedSuccess">Pospuesto 5 minutos</string>
+    <string name="undoChanges">Cambios deshechos</string>
+    <string name="savedChanges">Cambios guardados</string>
+    <string name="mustTellName">Debes decirme tu nombre para continuar</string>
+    <string name="mustSetTime">Debes escoger una hora para tu recordatorios</string>
+    <string name="setTimeText">Elige una hora</string>
+    <string name="newTimeSet">Nueva hora fijada</string>
 </resources>

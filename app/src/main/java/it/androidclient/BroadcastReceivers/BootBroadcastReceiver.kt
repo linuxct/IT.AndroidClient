@@ -13,13 +13,14 @@ import it.androidclient.Views.MainActivity
 import java.time.LocalDateTime
 
 class BootBroadcastReceiver : BroadcastReceiver() {
+    private lateinit var CHANNEL_ID : String
     override fun onReceive(context: Context?, intent: Intent?) {
         val now = LocalDateTime.now()
         val userDataDto = UserDataDto(context!!.applicationContext)
         if (now.hour >= userDataDto.notificationTimeSetHour!! &&
             ((now.hour == userDataDto.notificationTimeSetHour!! && now.minute >= userDataDto.notificationTimeSetMinute!!) ||
             (now.hour > userDataDto.notificationTimeSetHour!!))) {
-            val CHANNEL_ID = "EXERCISES"
+            CHANNEL_ID = context.getString(R.string.notificationChannelName)
             val currentNotificationId = now.hour+now.minute+now.second
 
             val notificationIntent = Intent(context.applicationContext, MainActivity::class.java).apply {
@@ -36,14 +37,14 @@ class BootBroadcastReceiver : BroadcastReceiver() {
 
             val builder = NotificationCompat.Builder(context.applicationContext, CHANNEL_ID)
                 .setSmallIcon(R.drawable.mouse_2)
-                .setContentTitle("Recordatorio de tus ejercicios")
-                .setContentText("¡Hola! ¿Te apetece hacer tus ejercicios diarios?")
+                .setContentTitle(context.getString(R.string.notificationTitle))
+                .setContentText(context.getString(R.string.notificationContent))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setOngoing(true)
-                .addAction(R.drawable.mouse_2, "¡Vamos!", pendingIntent)
-                .addAction(R.drawable.mouse_2, "Posponer", snoozePendingIntent)
+                .addAction(R.drawable.mouse_2, context.getString(R.string.notificationActionOpen), pendingIntent)
+                .addAction(R.drawable.mouse_2, context.getString(R.string.notificationActionPostpone), snoozePendingIntent)
 
             with(NotificationManagerCompat.from(context.applicationContext)) {
                 notify(currentNotificationId, builder.build())

@@ -26,7 +26,6 @@ class DateHas2ActivityDecorator(context: Activity?, private val achievementCount
     }
 
     init {
-        // You can set background for Decorator via drawable here
         drawable = ContextCompat.getDrawable(context!!, R.drawable.day_decorator_2)
     }
 }

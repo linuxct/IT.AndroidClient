@@ -18,12 +18,13 @@ import it.androidclient.Views.MainActivity
 import java.time.LocalDateTime
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
-    private val CHANNEL_ID = "EXERCISES"
+    private lateinit var CHANNEL_ID : String
     override fun onReceive(context: Context?, intent: Intent?) {
+        CHANNEL_ID = context!!.getString(R.string.notificationChannelName)
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val mChannel = NotificationChannel(CHANNEL_ID, "Recordatorios", importance)
-        mChannel.description = "Este canal representa los recordatorios de hacer tus ejercicios"
-        val notificationManager = context!!.applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val mChannel = NotificationChannel(CHANNEL_ID, context.getString(R.string.notificationChannelCaption), importance)
+        mChannel.description = context.getString(R.string.notificationChannelDesc)
+        val notificationManager = context.applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(mChannel)
 
         val now = LocalDateTime.now()
@@ -43,14 +44,14 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context.applicationContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.mouse_2)
-            .setContentTitle("Recordatorio de tus ejercicios")
-            .setContentText("¡Hola! ¿Te apetece hacer tus ejercicios diarios?")
+            .setContentTitle(context.getString(R.string.notificationTitle))
+            .setContentText(context.getString(R.string.notificationContent))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .setOngoing(true)
-            .addAction(R.drawable.mouse_2, "¡Vamos!", pendingIntent)
-            .addAction(R.drawable.mouse_2, "Posponer", snoozePendingIntent)
+            .addAction(R.drawable.mouse_2, context.getString(R.string.notificationActionOpen), pendingIntent)
+            .addAction(R.drawable.mouse_2, context.getString(R.string.notificationActionPostpone), snoozePendingIntent)
 
         with(NotificationManagerCompat.from(context.applicationContext)) {
             notify(currentNotificationId, builder.build())

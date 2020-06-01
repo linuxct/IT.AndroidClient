@@ -8,12 +8,9 @@ import it.androidclient.R
 import it.androidclient.Util.Loggable
 
 class WelcomeActivity : AppCompatActivity(), Loggable {
-    private val Log = seqLog()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-
-        Log.information("Hello from {lang}!", "Java")
 
         findViewById<Button>(R.id.continueButton).setOnClickListener {
             val intent = Intent(applicationContext, PrivacyPolicySetupActivity::class.java)

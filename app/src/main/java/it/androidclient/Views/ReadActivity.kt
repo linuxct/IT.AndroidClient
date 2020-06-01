@@ -82,6 +82,7 @@ class ReadActivity : AppCompatActivity() {
                 userDataDto.userAchievements = currentAchievements
 
                 val intent = Intent(context.applicationContext, CongratulationsActivity::class.java)
+                intent.putExtra("comesFrom", getString(R.string.applicationSectionNameReading).toLowerCase())
                 intent.flags += Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }

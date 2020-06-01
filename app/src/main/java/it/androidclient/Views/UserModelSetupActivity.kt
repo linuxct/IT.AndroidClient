@@ -34,26 +34,26 @@ class UserModelSetupActivity : AppCompatActivity() {
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(this@UserModelSetupActivity,
                 OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                    Toast.makeText(applicationContext, "Nueva hora fijada, $selectedHour:$selectedMinute", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "${getString(R.string.newTimeSet)}, $selectedHour:${selectedMinute.toString().padStart(2, '0')}", Toast.LENGTH_LONG).show()
                     startAlarmBroadcastReceiver(applicationContext, selectedHour, selectedMinute)
                     timeWasSet = true
                 }, hour, minute, true
             )
 
-            mTimePicker.setTitle("Elige una hora")
+            mTimePicker.setTitle(getString(R.string.setTimeText))
             mTimePicker.show()
         }
 
         continueButton.setOnClickListener {
             if (textInputFieldName.text.isNullOrBlank()){
-                textInputFieldName.error="Debes decirme tu nombre para continuar"
+                textInputFieldName.error=getString(R.string.mustTellName)
                 textInputFieldName.invalidate()
                 textInputFieldName.requestFocus()
                 return@setOnClickListener
             }
 
             if (!timeWasSet){
-                Toast.makeText(applicationContext, "Debes escoger una hora para tu recordatorios", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.mustSetTime), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 

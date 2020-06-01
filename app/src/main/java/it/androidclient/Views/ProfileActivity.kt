@@ -23,7 +23,6 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         userDataDto = UserDataDto(applicationContext)
 
-        toolbar_title.animateText("Este es tu progreso actual.\n¡Sigue así!")
         userDataDto.userAchievements as AchievementsModel.UserCalendarModel?
         var localDate = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
         val todayDate = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
