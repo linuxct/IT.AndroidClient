@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Client</string>
+    <string name="app_name">Mentally</string>
     <string name="greeting">Hola {0}, te estaba esperando</string>
     <string name="cheering">Vamos {0}, ya te queda poco</string>
     <string name="cheering_start">Vamos {0}, ya puedes empezar</string>
