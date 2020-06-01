@@ -35,7 +35,7 @@
     <string name="achievedButtonText">Conseguido</string>
     <string name="congratulationsActivityMainText">Felicidades, ya tienes hecha la parte de {0}. Ahora continua con la siguiente parte. Animo que tu puedes</string>
     <string name="touchToContinue">Toca la pantalla para continuar</string>
-    <string name="welcomeText">Hola, bienvenido a esta app, aqui te vamos a ayudar dia a dia a mejorar.\n\nA continuación configuraremos un perfil adaptado a ti para que disfrutes aún más de la aplicación.</string>
+    <string name="welcomeText">Hola, bienvenido a Mentally, aqui te vamos a ayudar dia a dia a mejorar.\n\nA continuación configuraremos un perfil adaptado a ti para que disfrutes aún más de la aplicación.</string>
     <string name="continueText">Continuar</string>
     <string name="privacypolicyurl">https://it-terms.linuxct.space/</string>
     <string name="microsoftprivacypolicyurl">https://azure.microsoft.com/en-us/support/legal/cognitive-services-compliance-and-privacy/</string>
